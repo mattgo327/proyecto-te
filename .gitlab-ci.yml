@@ -33,6 +33,12 @@ build_image:
 deploy:
   stage: deploy
   before_script:
+    
+      # Ajustar permisos del archivo en Windows
+      icacls digital_ocean_key /inheritance:r
+      icacls digital_ocean_key /grant:r "BUILTIN\Administrators:F"
+      icacls digital_ocean_key /grant:r "NT AUTHORITY\SYSTEM:F"
+      icacls digital_ocean_key /grant:r "DESKTOP-62OJUD7\Matias:R"
     - chmod 400 $SSH_KEY
   script:
     - ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@167.71.245.59 << 'EOF'
