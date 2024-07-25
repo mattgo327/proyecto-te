@@ -11,7 +11,7 @@ run_tests:
   stage: test
   image: python:3.9-slim-buster
   before_script:
-    - apt-get update && apt-get install -y apt-utils make git
+    - apt-get update && apt-get install -y apt-utils make git && apt list --upgradable
   script:
     - make test
 
