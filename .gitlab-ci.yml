@@ -35,7 +35,8 @@ deploy:
   before_script:
     - chmod 400 $SSH_KEY
   script:
-    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@167.71.245.59 << 'EOF'
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@167.71.245.59 << 
+      'EOF'
         docker login -u $REGISTRY_USER --password-stdin <<< "$REGISTRY_PASS" && \
         if [ $(docker ps -aq | wc -l) -gt 0 ]; then \
           docker ps -aq | xargs docker stop | xargs docker rm; \
