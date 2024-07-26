@@ -1,6 +1,7 @@
 variables:
   IMAGE_NAME: matiasgarayy/demo-app
   IMAGE_TAG: python-app-1.0
+  CONTAINER: docker ps -aq
 
 stages:
   - test
@@ -37,5 +38,5 @@ deploy:
   script:
     - ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@167.71.245.59 "
       docker login -u $REGISTRY_USER -p $REGISTRY_PASS && 
-      docker ps -aq | xargs docker stop $(docker ps -aq) | xargs docker rm $(docker ps -aq) &&
+      $CONTAINER | xargs docker stop $CONTAINER | xargs docker rm $CONTAINER &&
       docker run -d -p 500:500 $IMAGE_NAME:$IMAGE_TAG"
